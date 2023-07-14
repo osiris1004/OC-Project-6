@@ -20,7 +20,7 @@ public class ArticleController {
     private final ArticleService ArticleService;
   
 
-    @GetMapping("/article")
+    @GetMapping("/articles")
     public ResponseEntity<List<Article>> Articles() {
         return ResponseEntity.ok(ArticleService.getArticles());
     }
@@ -30,25 +30,21 @@ public class ArticleController {
         return ResponseEntity.ok(ArticleService.getArticleById(id));
     }
 
-    @PostMapping("/users/{userId}/article")
-    public ResponseEntity<Article> saveArticle(@PathVariable Integer userId, @RequestBody Article ArticleRequest) {
-
-    
+    @PostMapping("article")
+    public ResponseEntity<Article> saveArticle( @RequestBody Article ArticleRequest) {
         return ResponseEntity.ok(ArticleService.saveArticle(ArticleRequest));
-
     }
 
-    @PutMapping("/article/{ArticleId}")
-    public ResponseEntity<Article> updateArticle( @PathVariable Integer ArticleId, @RequestBody Article Article) {
-        Article.setId(ArticleId);
-        return ResponseEntity.ok(ArticleService.updateArticle(Article));
+    @PutMapping("/article/{articleId}")
+    public ResponseEntity<Article> updateArticle( @PathVariable Integer articleId, @RequestBody Article articleRequest) {
+        articleRequest.setId(articleId);
+        return ResponseEntity.ok(ArticleService.updateArticle(articleRequest));
     }
 
 
-    @DeleteMapping("/users/{userId}/article/{ArticleId}")
-    public ResponseEntity deleteArticle(@PathVariable Integer userId, @PathVariable Integer ArticleId, @RequestBody Article ArticleRequest) {
-       
-        ArticleService.deleteArticle(ArticleId);
+    @DeleteMapping("/article/{articleId}")
+    public ResponseEntity deleteArticle( @PathVariable Integer articleId) {
+        ArticleService.deleteArticle(articleId);
         return ResponseEntity.noContent().build();
     }
 

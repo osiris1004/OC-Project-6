@@ -34,13 +34,24 @@ public class Article{
     @Column(name = "content")
     private String content;
 
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Date created_at;
 
+    @CreationTimestamp
+    @Column(name = "updated_at", updatable = true)
+    private Date updated_at;
+
+    @Column(name = "author")
+    private String author;      //* userId
+
+    ////**********
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "article_theme",
-            joinColumns = { @JoinColumn(name = "user_id") },
+            joinColumns = { @JoinColumn(name = "article_id") },
             inverseJoinColumns = { @JoinColumn(name = "theme_id") })
     @ToString.Exclude
     private List<Theme> articleThemes = new ArrayList<Theme>();
@@ -59,21 +70,14 @@ public class Article{
         }
     }
 
-    @Column(name = "author")
-    private String author;      //* userId
+
 
     @Column(name = "comment")
     private String comment;      //* [comment1, comment2 ...]
 
    
 
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Date created_at;
 
-    @CreationTimestamp
-    @Column(name = "updated_at", updatable = true)
-    private Date updated_at;
 
 
     
