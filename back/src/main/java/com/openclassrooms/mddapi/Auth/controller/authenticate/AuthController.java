@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.Auth.controller.authenticate;
 
 
 
+import com.openclassrooms.mddapi.modles.Theme;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,8 @@ import com.openclassrooms.mddapi.services.User.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -36,19 +39,20 @@ public class AuthController {
         return ResponseEntity.ok(service.register(request));
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest request) {
         System.out.println("test");
         return ResponseEntity.ok(service.authenticate(request));
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> themes() {
+        return ResponseEntity.ok(userService.getUsers());
+    }
 
-    @GetMapping("/me")
+    @GetMapping("/user")
     public ResponseEntity<User> getUser(HttpServletRequest request) {
-
         final String authHeader = request.getHeader("Authorization");
-
         try {
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 throw new Exception("Exception message");
@@ -61,4 +65,6 @@ public class AuthController {
         }
 
     }
+
+
 }
