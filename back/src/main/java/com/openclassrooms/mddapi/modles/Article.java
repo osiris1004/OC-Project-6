@@ -6,6 +6,9 @@ package com.openclassrooms.mddapi.modles;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,17 +34,6 @@ public class Article{
     @Column(name = "content")
     private String content;
 
-    @Column(name = "theme")
-    private String theme;  //* [theme1, theme2, theme3 ...]
-
-    @Column(name = "author")
-    private String author;      //* userId
-
-    @Column(name = "comment")
-    private String comment;      //* [comment1, comment2 ...]
-
-   
-
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date created_at;
@@ -49,6 +41,45 @@ public class Article{
     @CreationTimestamp
     @Column(name = "updated_at", updatable = true)
     private Date updated_at;
+
+    @Column(name = "author")
+    private String author;      //* userId
+
+    ////**********
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "article_theme",
+            joinColumns = { @JoinColumn(name = "article_id") },
+            inverseJoinColumns = { @JoinColumn(name = "theme_id") })
+    @ToString.Exclude
+    private List<Theme> articleThemes = new ArrayList<Theme>();
+
+
+    public void addTheme(Theme theme) {
+        this.articleThemes.add(theme);
+        theme.getArticles().add(this);
+    }
+
+    public void removeTheme(Integer themeId) {
+        Theme theme = this.articleThemes.stream().filter(t -> t.getId() == themeId).findFirst().orElse(null);
+        if (theme != null) {
+            this.articleThemes.remove(theme);
+            theme.getUsers().remove(this);
+        }
+    }
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "comment_id")
+    @Column(name = "comment")
+    private List<Comment> comment = new ArrayList<Comment>();
+       //* [comment1, comment2 ...]
+
+   
+
+
 
 
     
