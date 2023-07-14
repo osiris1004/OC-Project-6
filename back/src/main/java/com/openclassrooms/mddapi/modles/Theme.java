@@ -34,4 +34,12 @@ public class Theme {
     @JsonIgnore
     @ToString.Exclude
     private List<User> users =  new ArrayList<User>();
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "articleThemes")
+    @JsonIgnore
+    @ToString.Exclude
+    private List<Article> articles =  new ArrayList<Article>();
 }   

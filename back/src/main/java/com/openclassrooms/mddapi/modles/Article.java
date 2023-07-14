@@ -6,6 +6,9 @@ package com.openclassrooms.mddapi.modles;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,8 +34,30 @@ public class Article{
     @Column(name = "content")
     private String content;
 
-    @Column(name = "theme")
-    private String theme;  //* [theme1, theme2, theme3 ...]
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "article_theme",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "theme_id") })
+    @ToString.Exclude
+    private List<Theme> articleThemes = new ArrayList<Theme>();
+
+
+    public void addTheme(Theme theme) {
+        this.articleThemes.add(theme);
+        theme.getArticles().add(this);
+    }
+
+    public void removeTheme(Integer themeId) {
+        Theme theme = this.articleThemes.stream().filter(t -> t.getId() == themeId).findFirst().orElse(null);
+        if (theme != null) {
+            this.articleThemes.remove(theme);
+            theme.getUsers().remove(this);
+        }
+    }
 
     @Column(name = "author")
     private String author;      //* userId

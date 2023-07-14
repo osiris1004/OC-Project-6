@@ -74,7 +74,4 @@ public class ThemeController {
         return ResponseEntity.noContent().build();
     }
 
-
-
-
 }
