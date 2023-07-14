@@ -71,9 +71,11 @@ public class Article{
     }
 
 
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "comment_id")
     @Column(name = "comment")
-    private String comment;      //* [comment1, comment2 ...]
+    private List<Comment> comment = new ArrayList<Comment>();
+       //* [comment1, comment2 ...]
 
    
 

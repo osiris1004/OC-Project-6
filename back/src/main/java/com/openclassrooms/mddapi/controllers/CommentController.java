@@ -2,6 +2,8 @@ package com.openclassrooms.mddapi.controllers;
 
 import java.util.List;
 
+import com.openclassrooms.mddapi.modles.Article;
+import com.openclassrooms.mddapi.services.Article.ArticleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,34 +21,41 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @GetMapping("/Comment")
+    private  final ArticleService articleService;
+
+    @GetMapping("/comments")
     public ResponseEntity<List<Comment>> Comments() {
         return ResponseEntity.ok(commentService.getComments());
     }
 
-    @GetMapping("/Comment/{id}")
+    @GetMapping("/comment/{id}")
     public ResponseEntity<Comment> getComment(@PathVariable Integer id) {
         return ResponseEntity.ok(commentService.getCommentById(id));
     }
 
-    @PostMapping("/users/{userId}/Comment")
-    public ResponseEntity<Comment> saveComment(@PathVariable Integer userId, @RequestBody Comment commentRequest) {
+    @PostMapping("/comment")
+    public ResponseEntity<Comment> saveComment(@RequestBody Comment commentRequest) {
         return ResponseEntity.ok(commentService.saveComment(commentRequest));
-
     }
 
-    @PutMapping("/Comment/{CommentId}")
-    public ResponseEntity<Comment> updateComment( @PathVariable Integer CommentId, @RequestBody Comment commentRequest) {
-        commentRequest.setId(CommentId);
+    @PutMapping("/comment/{commentId}")
+    public ResponseEntity<Comment> updateComment( @PathVariable Integer commentId, @RequestBody Comment commentRequest) {
+        commentRequest.setId(commentId);
         return ResponseEntity.ok(commentService.updateComment(commentRequest));
     }
 
 
-    @DeleteMapping("/users/{userId}/Comment/{CommentId}")
-    public ResponseEntity deleteComment(@PathVariable Integer userId, @PathVariable Integer CommentId, @RequestBody Comment commentRequest) {
-       
-        commentService.deleteComment(CommentId);
+    @DeleteMapping("/comment/{commentId}")
+    public ResponseEntity deleteComment( @PathVariable Integer commentId) {
+        commentService.deleteComment(commentId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/article/{articleId}/comment")
+    public ResponseEntity<Comment> saveCommentInArticle(@PathVariable Integer articleId, @RequestBody Comment commentRequest) {
+        Article article = articleService.getArticleById(articleId);
+        article.getComment().add(commentRequest);
+        return ResponseEntity.ok(commentService.saveComment(commentRequest));
     }
 
 }
