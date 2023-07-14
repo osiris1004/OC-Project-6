@@ -1,7 +1,10 @@
 package com.openclassrooms.mddapi.services.User;
 
 
+import java.util.List;
 import java.util.Optional;
+
+import com.openclassrooms.mddapi.modles.Theme;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.modles.User.User;
@@ -17,6 +20,8 @@ public class UserService implements IUserService{
     private final UserRepository userRepository;
 
     @Override
+    public List<User> getUsers() { return userRepository.findAll();}
+    @Override
     public User getUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
@@ -30,14 +35,11 @@ public class UserService implements IUserService{
         if(rental.isPresent()){
             return rental.get();
         }
-        throw  new ResourceNotFoundException("Not found rentals with id = " + id);
+        throw  new RuntimeException("Not found rentals with id = " + id);
     }
-
-}
- class ResourceNotFoundException extends RuntimeException{
-    private static final long serialVersionUID = 1L;
-    public ResourceNotFoundException(String msg) {
-      super(msg);
+    @Override
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
 }

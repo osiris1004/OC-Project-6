@@ -1,17 +1,18 @@
 package com.openclassrooms.mddapi.modles;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openclassrooms.mddapi.modles.User.User;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "theme") 
 @Table(name = "theme")
 public class Theme {
@@ -26,7 +27,11 @@ public class Theme {
     @Column(name = "content")
     private String content;
 
-    @ManyToOne(fetch =FetchType.LAZY)     //*- 
-    @JoinColumn(name = "user_id")           //*- ---> identical to FK
-    private User user;                  //*- 
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "subscribedThemes")
+    @JsonIgnore
+    @ToString.Exclude
+    private List<User> users =  new ArrayList<User>();
 }   

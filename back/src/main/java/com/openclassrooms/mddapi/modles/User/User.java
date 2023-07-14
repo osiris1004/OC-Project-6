@@ -2,10 +2,10 @@ package com.openclassrooms.mddapi.modles.User;
 
 
 import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,8 +50,31 @@ public class User implements UserDetails{
     @Enumerated(EnumType.STRING) 
     private Role role;
 
-    @OneToMany(mappedBy ="user")                                        //*-
-    private List<Theme> subscribedTheme;  //*[theme1, theme2 ...]       //*- identical to map fk
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "user_theme",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "theme_id") })
+    @ToString.Exclude
+    private List<Theme> subscribedThemes = new ArrayList<Theme>();
+
+
+    public void addTheme(Theme theme) {
+        this.subscribedThemes.add(theme);
+        theme.getUsers().add(this);
+    }
+
+   public void removeTheme(Integer themeId) {
+       Theme theme = this.subscribedThemes.stream().filter(t -> t.getId() == themeId).findFirst().orElse(null);
+       if (theme != null) {
+           this.subscribedThemes.remove(theme);
+           theme.getUsers().remove(this);
+       }
+   }
+
 
 
     @Override
@@ -88,5 +111,6 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-    
+
+
 }
