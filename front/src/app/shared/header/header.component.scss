@@ -1,6 +1,7 @@
+
 .header{
     display: flex;
-    border : solid green 1px;
+    //border : solid green 1px;
     .right{
         margin-left: auto;
         display: flex;
@@ -22,15 +23,17 @@
 }
 
 @media screen and (max-width: 600px) { //if  view === 480px or <480px
-    // .header {
-    //   background-color: lightgreen;
-    // }
+    .header {
+      background-color: lightgreen;
+    }
     .profile-icon {
         display: none;
     }
-    .right > div:nth-child(-n+2){
-        display: none;
-    }
+    // .right > div:nth-child(-n+2){
+    //     display: none;
+    // }
+
+    
   }
 
   @media screen and (min-width: 601px) {

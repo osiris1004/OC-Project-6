@@ -12,7 +12,7 @@ export class FormComponent implements OnInit {
   constructor() { }
 
   @Input("targetView")
-  public view!: string
+  public view!: "registration" | "login" | "article" | "profile" 
   public dynamicData!: any;
 
   ngOnInit() {

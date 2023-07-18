@@ -12,6 +12,5 @@ export class AuthSystemViewsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //public view = "registration"
-  public view = "login"
+  public view :"registration" | "login" | "article" | "profile" = "login"
 }
