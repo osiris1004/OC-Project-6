@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: solid red 1px;
+    height: 100vh;
+}
+
+.item {
+    border: solid red 1px;
+    margin: auto;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input{
+    height: 40px;
+    border-radius: 5px;
+    min-width: 300px;
+}
+
+button{
+     width: 200px;
+     margin: auto;
+}

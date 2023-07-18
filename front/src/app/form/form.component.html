@@ -1,0 +1,17 @@
+
+    <form class="container" [formGroup]="formData" (ngSubmit) = "submitForm(formData.value)">
+        <div class="item">
+            <div class="title">{{dynamicData.title}}</div>
+            <div class="input"  *ngFor="let data of dynamicData.fields">
+                <div>
+                    <p>{{data.label}}</p>
+                    <input matInput placeholder={{data.placeholder}} formControlName={{data.name}}>
+                </div>
+            </div>
+            <div class="button-container">
+                <button mat-raised-button color="primary" type="submit" >Submit</button>
+            </div>
+            
+        </div>
+
+    </form>

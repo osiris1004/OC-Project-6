@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    border: solid red 1px;
+    padding-top: 50px;
+    .title{
+        text-align: center;
+        font-weight: 500;
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+}
+
+
+.item {
+    margin: auto;
+    .input {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+    
+        input {
+            height: 40px;
+            border-radius: 5px;
+            min-width: 400px;
+        }
+    }
+}
+
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    button {
+        width: 200px;
+    }
+}
+
+
