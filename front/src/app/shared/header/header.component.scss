@@ -1,0 +1,44 @@
+
+.header{
+    display: flex;
+    //border : solid green 1px;
+    .right{
+        margin-left: auto;
+        display: flex;
+        //border : solid red 1px;
+        gap: 20px;
+        align-items: center;
+    }
+    #logo{
+        width: 150px;
+    }
+    .menu-icon{
+       width: 40px;
+       height: 40px;
+    }
+    .profile-icon{
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 600px) { //if  view === 480px or <480px
+    .header {
+      background-color: lightgreen;
+    }
+    .profile-icon {
+        display: none;
+    }
+    // .right > div:nth-child(-n+2){
+    //     display: none;
+    // }
+
+    
+  }
+
+  @media screen and (min-width: 601px) {
+    .menu-icon {
+        display: none;
+    }
+
+  }

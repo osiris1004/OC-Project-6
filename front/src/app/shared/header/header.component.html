@@ -1,0 +1,27 @@
+<main [ngSwitch]="view">
+    <div class="header" *ngSwitchCase=" 'home-other' ">
+        <div><img src="../../../assets/logo_p6.png" alt="logo" id="logo" /></div>
+        <div class="right">
+            <div>article</div>
+            <div>theme</div>
+            <div><img src="../../../assets/menu.png" alt="logo" class="menu-icon" /></div>
+            <div><img src="../../../assets/profile-active.png" alt="logo" class="profile-icon" /></div>
+        </div>
+    </div>
+    <div class="header" *ngSwitchCase=" 'profile' ">
+        <div><img src="../../../assets/logo_p6.png" alt="logo" id="logo" /></div>
+        <div class="right">
+            <div>article</div>
+            <div>theme</div>
+            <div><img src="../../../assets/menu.png" alt="logo" class="menu-icon" /></div>
+            <div><img src="../../../assets/profile-not-active.png" alt="logo" class="profile-icon" /></div>
+        </div>
+    </div>
+
+    <div class="header" *ngSwitchDefault>
+        <div><img src="../../../assets/logo_p6.png" alt="logo" id="logo" /></div>
+        <div class="right">
+            <div><img src="../../../assets/menu.png" alt="logo" class="menu-icon" /></div>
+        </div>
+    </div>
+</main>
