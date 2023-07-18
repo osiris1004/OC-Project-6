@@ -8,11 +8,12 @@ import { HomeComponent } from './features/home/home.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AuthSystemViewsComponent } from './features/auth-system-views/auth-system-views.component';
 import { FormsModule, ReactiveFormsModule   } from '@angular/forms';
-import { FormComponent } from './form/form.component';
+import { FormComponent } from './shared/form/form.component';
+import { BoardComponent } from './features/board/board.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent, AuthSystemViewsComponent, FormComponent],
+  declarations: [AppComponent, HomeComponent, HeaderComponent, AuthSystemViewsComponent, FormComponent, BoardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

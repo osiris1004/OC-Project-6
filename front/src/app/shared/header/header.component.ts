@@ -18,6 +18,6 @@ export class HeaderComponent implements OnInit {
   }
 
   @Input("targetView")
-  public view!: "home-other" | "profile"
+  public view!: "other" | "profile"
 
 }
