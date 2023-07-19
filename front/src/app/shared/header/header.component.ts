@@ -13,8 +13,7 @@ export class HeaderComponent implements OnInit {
   private width: number | undefined;
   constructor(private cdr: ChangeDetectorRef, private _location:Location, private _router:Router){}
 
-  ngOnInit(){
-  }
+  ngOnInit(){}
   
   setWidth(widthNumber: number){
     this.width = widthNumber;
@@ -24,11 +23,9 @@ export class HeaderComponent implements OnInit {
   @Input("targetView")
   public view!: "other" | "profile"
 
-
   goBack(){
     this._location.back()
   }
-
   navToArticle(){
     this._router.navigate(["board","article"])
   }

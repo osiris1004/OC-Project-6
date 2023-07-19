@@ -19,7 +19,6 @@ export class BoardComponent implements OnInit {
       this.viewHeader = "other"
     })
   }
-  
 }
 
 

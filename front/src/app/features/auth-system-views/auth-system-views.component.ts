@@ -17,6 +17,4 @@ export class AuthSystemViewsComponent implements OnInit {
       this.view = param.get('view')  as "registration" | "login" | "article" | "profile"
     })
   }
-
-  
 }
