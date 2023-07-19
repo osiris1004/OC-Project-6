@@ -10,7 +10,7 @@ import { BoardComponent } from './features/board/board.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'auth/:view', component: AuthSystemViewsComponent },
-  { path: 'board', component: BoardComponent }
+  { path: 'board/:view', component: BoardComponent }
 ];
 
 @NgModule({

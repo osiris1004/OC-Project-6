@@ -23,6 +23,12 @@
         height: 60px;
     }
 }
+.back-icon{
+    width: 60px;
+    height: 50px;
+    cursor: pointer;
+    margin: 0px;
+}
 
 @media screen and (max-width: 600px) { //if  view === 480px or <480px
     .header {

@@ -1,4 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +11,8 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   private width: number | undefined;
-  constructor(private cdr: ChangeDetectorRef){}
+  constructor(private cdr: ChangeDetectorRef, private _location:Location, private _router:Router){}
+
   ngOnInit(){
   }
   
@@ -19,5 +23,20 @@ export class HeaderComponent implements OnInit {
 
   @Input("targetView")
   public view!: "other" | "profile"
+
+
+  goBack(){
+    this._location.back()
+  }
+
+  navToArticle(){
+    this._router.navigate(["board","article"])
+  }
+  navToTheme(){
+    this._router.navigate(["board","theme"])
+  }
+  navToProfile(){
+    this._router.navigate(["board","profile"])
+  }
 
 }
