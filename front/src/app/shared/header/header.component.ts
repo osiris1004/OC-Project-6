@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(["board","theme"])
   }
   navToProfile(){
-    this._router.navigate(["board","profile"])
+    this._router.navigate(["profile"])
   }
 
 }

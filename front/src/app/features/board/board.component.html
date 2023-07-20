@@ -3,7 +3,7 @@
     <section *ngSwitchCase=" 'article' ">
         <app-header [targetView]="viewHeader"></app-header>
         <div class="head">
-            <button mat-raised-button color="primary" type="submit">create an article</button>
+            <button mat-raised-button color="primary" type="submit" (click)="addArticle()">create an article</button>
             <div class="right">
                 <div>sort</div>
                 <img src="../../../assets/down-arrow.png" alt="logo" class="profile-icon" />
@@ -55,5 +55,10 @@
                 Content: lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
             </div>
         </div>
+    </section>
+
+    <section *ngSwitchCase=" 'addArticle' ">
+        <app-header [targetView]="viewHeader"></app-header>
+        <app-form  [targetView]="'article'"></app-form>
     </section>
 </main>

@@ -10,7 +10,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 export class BoardComponent implements OnInit {
 
   public viewHeader !: "other" | "profile"
-  public view !: "article" | "theme" | "selectedArticle"
+  public view !: "article" | "theme" | "selectedArticle" | "addArticle"
 
   constructor(private _route : ActivatedRoute, private _router :Router) {}
   ngOnInit(): void {
@@ -18,6 +18,11 @@ export class BoardComponent implements OnInit {
       this.view = param.get('view')  as "article" | "theme" | "selectedArticle"
       this.viewHeader = "other"
     })
+  }
+
+  addArticle(){
+    this.view = "addArticle"
+    console.log("tes")
   }
 }
 

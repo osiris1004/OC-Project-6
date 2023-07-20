@@ -39,7 +39,8 @@ export class FormComponent implements OnInit {
       this.dynamicData = this.fields("article");
       this.formData = new FormGroup({
         theme: new FormControl(''),
-        password: new FormControl('')
+        article: new FormControl(''),
+        content: new FormControl('')
       });
     }
 
@@ -47,8 +48,7 @@ export class FormComponent implements OnInit {
       this.dynamicData = this.fields("profile");
       this.formData = new FormGroup({
         name: new FormControl(''),
-        article: new FormControl(''),
-        content: new FormControl('')
+        email: new FormControl(''),
       });
     }
 

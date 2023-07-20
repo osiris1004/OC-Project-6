@@ -10,19 +10,24 @@ import { AuthSystemViewsComponent } from './features/auth-system-views/auth-syst
 import { FormsModule, ReactiveFormsModule   } from '@angular/forms';
 import { FormComponent } from './shared/form/form.component';
 import { BoardComponent } from './features/board/board.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent, AuthSystemViewsComponent, FormComponent, BoardComponent],
+  declarations: [AppComponent, HomeComponent, HeaderComponent, AuthSystemViewsComponent, FormComponent, BoardComponent, ProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule  
+    ReactiveFormsModule ,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
