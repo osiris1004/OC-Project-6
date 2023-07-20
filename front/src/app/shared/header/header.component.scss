@@ -2,6 +2,8 @@
 .header{
     display: flex;
     //border : solid green 1px;
+    border-bottom: solid black 1px;
+    padding: 0 10px 0 2px;
     .right{
         margin-left: auto;
         display: flex;
@@ -20,6 +22,12 @@
         width: 60px;
         height: 60px;
     }
+}
+.back-icon{
+    width: 60px;
+    height: 50px;
+    cursor: pointer;
+    margin: 0px;
 }
 
 @media screen and (max-width: 600px) { //if  view === 480px or <480px

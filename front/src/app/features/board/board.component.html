@@ -1,0 +1,64 @@
+<main class="conatainer" [ngSwitch]="view">
+
+    <section *ngSwitchCase=" 'article' ">
+        <app-header [targetView]="viewHeader"></app-header>
+        <div class="head">
+            <button mat-raised-button color="primary" type="submit" (click)="addArticle()">create an article</button>
+            <div class="right">
+                <div>sort</div>
+                <img src="../../../assets/down-arrow.png" alt="logo" class="profile-icon" />
+            </div>
+        </div>
+        <div class="carte-container">
+            <div class="carte">
+                <div>Titre de l’article</div>
+                <div class="section">
+                    <p>date</p>
+                    <p>author</p>
+                </div>
+                <div>Content: lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                    been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of
+                    type and scrambled...</div>
+            </div>
+        </div>
+    </section>
+    <section *ngSwitchCase=" 'theme' ">
+        <app-header [targetView]="viewHeader"></app-header>
+        <div class="carte-container">
+            <div class="carte">
+                <div>Titre de l’article</div>
+                <div class="section"></div>
+                <div>Content: lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                    been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of
+                    type and scrambled...</div>
+
+                <div class="button">
+                    <button mat-raised-button color="primary" type="submit">subscribe</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section *ngSwitchCase=" 'selectedArticle' ">
+        <app-header [targetView]="viewHeader"></app-header>
+        <div class="container">
+            <div class="title">Titre de l’article sélectionné</div>
+            <div class="head-article">
+                <p>date</p>
+                <p>author</p>
+                <p>theme</p>
+            </div>
+            <div class="contenet">
+                Content: lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            </div>
+        </div>
+    </section>
+
+    <section *ngSwitchCase=" 'addArticle' ">
+        <app-header [targetView]="viewHeader"></app-header>
+        <app-form  [targetView]="'article'"></app-form>
+    </section>
+</main>

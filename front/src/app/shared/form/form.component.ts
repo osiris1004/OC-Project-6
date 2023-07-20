@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -9,12 +10,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class FormComponent implements OnInit {
 
   formData!: FormGroup;
-  constructor() { }
-
+ 
+  public dynamicData!: any;
   @Input("targetView")
   public view!: "registration" | "login" | "article" | "profile" 
-  public dynamicData!: any;
-
+  
+  constructor(private _router:Router) {}
   ngOnInit() {
     if (this.view === "registration") {
       this.dynamicData = this.fields("registration");
@@ -38,7 +39,8 @@ export class FormComponent implements OnInit {
       this.dynamicData = this.fields("article");
       this.formData = new FormGroup({
         theme: new FormControl(''),
-        password: new FormControl('')
+        article: new FormControl(''),
+        content: new FormControl('')
       });
     }
 
@@ -46,8 +48,7 @@ export class FormComponent implements OnInit {
       this.dynamicData = this.fields("profile");
       this.formData = new FormGroup({
         name: new FormControl(''),
-        article: new FormControl(''),
-        content: new FormControl('')
+        email: new FormControl(''),
       });
     }
 
@@ -55,7 +56,25 @@ export class FormComponent implements OnInit {
 
 
   submitForm(form: FormGroup) {
-    console.log(form)
+
+    if(this.view === "registration"){
+      console.log(form)
+      console.log(1)
+    }
+    if(this.view === "login"){
+      console.log(form)
+      console.log(2)
+      this._router.navigate(["board","article"])
+    }
+    if(this.view === "article"){
+      console.log(form)
+      console.log(2)
+    }
+    if(this.view === "profile"){
+      console.log(form)
+      console.log(1)
+    }
+   
   }
 
 

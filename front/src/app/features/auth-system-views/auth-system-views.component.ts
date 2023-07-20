@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-auth-system-views',
@@ -7,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthSystemViewsComponent implements OnInit {
 
-  constructor() { }
+  public view !:"registration" | "login" | "article" | "profile"
 
+  constructor(private _route : ActivatedRoute) {}
   ngOnInit(): void {
+    this._route.paramMap.subscribe((param : ParamMap)=>{
+      this.view = param.get('view')  as "registration" | "login" | "article" | "profile"
+    })
   }
-
-  public view :"registration" | "login" | "article" | "profile" = "login"
 }

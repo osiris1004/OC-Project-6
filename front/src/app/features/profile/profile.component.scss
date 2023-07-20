@@ -1,0 +1,42 @@
+.wrapper{
+    border-top: solid;
+    margin: 10px;
+
+    .title{
+        text-align: center;
+        font-weight: bolder;
+        font-size:x-large;
+        padding: 20px;
+    }
+}
+
+.carte-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .carte{
+        background-color: rgba(128, 128, 128, 0.099);
+        margin: 10px;
+        width: 400px;
+        padding: 10px;
+        border-radius: 5px;
+
+        .section{
+            display: flex;
+            padding: 5px;
+            p{
+                width: 50%;
+            }
+        }
+        
+        div:first-child{
+            font-weight: bolder;
+        } 
+
+        .button{
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+    }
+}
