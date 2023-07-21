@@ -23,9 +23,13 @@
         background-color: rgba(128, 128, 128, 0.099);
         margin: 10px;
         width: 400px;
+        height: 175px;
         padding: 10px;
         border-radius: 5px;
-
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        display: inline-block;
+        
         .section{
             display: flex;
             padding: 5px;
@@ -66,4 +70,10 @@
         gap: 20%;
     }
     
+}
+
+.loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

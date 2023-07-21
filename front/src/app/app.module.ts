@@ -13,7 +13,7 @@ import { BoardComponent } from './features/board/board.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptorService } from './core/interceptor/token-interceptor.service';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { TokenInterceptorService } from './core/interceptor/token-interceptor.se
     FormsModule,
     ReactiveFormsModule ,
     HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },

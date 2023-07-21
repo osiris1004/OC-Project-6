@@ -24,7 +24,7 @@ public class Theme {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 3000)
     private String content;
 
     @ManyToMany(

@@ -16,7 +16,7 @@ export class FormComponent implements OnInit {
   @Input("targetView")
   public view!: "registration" | "login" | "article" | "profile" 
   
-  constructor(private _router:Router, private _auth: AuthService) {}
+  constructor(private _router:Router, private _authServices: AuthService) {}
   ngOnInit() {
     if (this.view === "registration") {
       this.dynamicData = this.fields("registration");
@@ -59,8 +59,8 @@ export class FormComponent implements OnInit {
   submitForm(form: FormGroup) {
 
     if(this.view === "registration"){
-      this._auth.registerUser(form).subscribe(
-        (response) => {
+      this._authServices.registerUser(form).subscribe(
+        response => {
           localStorage.setItem('token', response.token)
           this._router.navigate(["board","article"])
         },
@@ -70,7 +70,7 @@ export class FormComponent implements OnInit {
       console.log(1)
     }
     if(this.view === "login"){
-      this._auth.loginUser(form).subscribe(
+      this._authServices.loginUser(form).subscribe(
         response => {
           localStorage.setItem('token', response.token)
           this._router.navigate(["board","article"])
