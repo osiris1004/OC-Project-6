@@ -1,3 +1,4 @@
+import { IComment } from "./IComment";
 import { ITheme } from "./ITheme";
 
 export interface IArticle{

@@ -27,6 +27,6 @@ public class Comment {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 3000)
     private String content;
 }

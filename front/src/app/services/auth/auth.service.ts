@@ -8,16 +8,16 @@ import { IToken } from 'src/app/core/interfaces/IToken';
 })
 export class AuthService {
 
-  private baseURL = "api"
+  private baseURL = "api"+"/auth/" //"http://localhost:3001"
 
   constructor(private http: HttpClient) { }
 
   registerUser(userRequest:any){
-    return  this.http.post<IToken>(this.baseURL+'/auth/register', userRequest)
+    return  this.http.post<IToken>(this.baseURL+'register', userRequest)
   }
 
   loginUser(userRequest:any){
-    return  this.http.post<IToken>(this.baseURL+'/auth/login', userRequest)
+    return  this.http.post<IToken>(this.baseURL+'login', userRequest)
   }
 
   

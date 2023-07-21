@@ -1,7 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ITheme } from 'src/app/core/interfaces/ITheme';
+import { IRequestArticle } from 'src/app/core/interfaces/ResquestArticle';
+import { ArticleService } from 'src/app/services/article/article.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ThemeService } from 'src/app/services/theme/theme.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-form',
@@ -11,12 +16,23 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class FormComponent implements OnInit {
 
   formData!: FormGroup;
+  themeList!: ITheme[] ;
+  authorN!: string;
  
   public dynamicData!: any;
   @Input("targetView")
   public view!: "registration" | "login" | "article" | "profile" 
   
-  constructor(private _router:Router, private _auth: AuthService) {}
+  @Output()
+  public redirectByString = new EventEmitter()
+  
+  constructor(
+    private _router:Router, 
+    private _authServices: AuthService,
+    private _themeService : ThemeService,
+    private _userService : UserService,
+    private _articleService : ArticleService
+    ) {}
   ngOnInit() {
     if (this.view === "registration") {
       this.dynamicData = this.fields("registration");
@@ -38,10 +54,13 @@ export class FormComponent implements OnInit {
 
     if (this.view === "article") {
       this.dynamicData = this.fields("article");
+      this._userService.get().subscribe(response =>  this.authorN = response.name ,error => console.log(error)) 
+      this._themeService.get().subscribe(response =>  this.themeList = response,error => console.log(error))  
       this.formData = new FormGroup({
-        theme: new FormControl(''),
+        articleThemes: new FormControl(''),
         article: new FormControl(''),
-        content: new FormControl('')
+        content: new FormControl(''),
+        authorName : new FormControl(''),
       });
     }
 
@@ -59,8 +78,8 @@ export class FormComponent implements OnInit {
   submitForm(form: FormGroup) {
 
     if(this.view === "registration"){
-      this._auth.registerUser(form).subscribe(
-        (response) => {
+      this._authServices.registerUser(form).subscribe(
+        response => {
           localStorage.setItem('token', response.token)
           this._router.navigate(["board","article"])
         },
@@ -70,20 +89,24 @@ export class FormComponent implements OnInit {
       console.log(1)
     }
     if(this.view === "login"){
-      this._auth.loginUser(form).subscribe(
+      this._authServices.loginUser(form).subscribe(
         response => {
           localStorage.setItem('token', response.token)
           this._router.navigate(["board","article"])
         },
         error => console.log(error),
       )
-      console.log(form)
-      console.log(2)
-      //
     }
     if(this.view === "article"){
-      console.log(form)
-      console.log(2)
+      const format = form as unknown as IRequestArticle
+      format.authorName = this.authorN
+      this._articleService.create(format).subscribe(response =>  console.log(response),error => console.log(error))
+      this.redirectByString.emit('article')
+      this._router.navigateByUrl('/').then(() => {
+        this._router.navigate(["board","article"]);
+    });;
+      
+     
     }
     if(this.view === "profile"){
       console.log(form)
@@ -141,7 +164,7 @@ export class FormComponent implements OnInit {
         fields: [
           {
             label: "",
-            name: "theme",
+            name: "articleThemes",
             placeholder: "select a theme"
           },
           {
