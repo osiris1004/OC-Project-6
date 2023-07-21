@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ITheme } from 'src/app/core/interfaces/ITheme';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ThemeService } from 'src/app/services/theme/theme.service';
 
 @Component({
   selector: 'app-form',
@@ -11,12 +13,17 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class FormComponent implements OnInit {
 
   formData!: FormGroup;
+  themeList!: ITheme[] ;
  
   public dynamicData!: any;
   @Input("targetView")
   public view!: "registration" | "login" | "article" | "profile" 
   
-  constructor(private _router:Router, private _authServices: AuthService) {}
+  constructor(
+    private _router:Router, 
+    private _authServices: AuthService,
+    private _themeService : ThemeService
+    ) {}
   ngOnInit() {
     if (this.view === "registration") {
       this.dynamicData = this.fields("registration");
@@ -38,6 +45,7 @@ export class FormComponent implements OnInit {
 
     if (this.view === "article") {
       this.dynamicData = this.fields("article");
+      this._themeService.get().subscribe(response =>  this.themeList = response,error => console.log(error)) 
       this.formData = new FormGroup({
         theme: new FormControl(''),
         article: new FormControl(''),

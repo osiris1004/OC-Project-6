@@ -13,7 +13,7 @@ import { ThemeService } from 'src/app/services/theme/theme.service';
 })
 export class BoardComponent implements OnInit {
 
-  public viewHeader !: "other" | "profile"
+  public viewHeader !: "other" | "profile" | "no-back-button"
   public view !: "article" | "theme" | "selectedArticle" | "addArticle"
   public viewArticleList! :IArticle[]
   public viewArticle! :IArticle
@@ -28,10 +28,11 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     this._route.paramMap.subscribe((param : ParamMap)=>{
       this.view = param.get('id') ? "selectedArticle" : param.get('view')  as "article" | "theme" | "selectedArticle"
-      this.viewHeader = "other"
+      
  
 
       if(this.view === "article"){
+        this.viewHeader = "no-back-button"
         this._articleService.get().subscribe(
           response => this.viewArticleList = response,
           error => console.log(error),
@@ -39,6 +40,7 @@ export class BoardComponent implements OnInit {
       }
 
       if(this.view === "theme"){
+        this.viewHeader = "other"
         this._themeService.get().subscribe(
           response => {
             this.viewThemeList = response
@@ -49,6 +51,7 @@ export class BoardComponent implements OnInit {
       }
 
       if(this.view === "selectedArticle" && param.get('id') ){
+        this.viewHeader = "other"
         const id = param.get('id') as unknown as number
         this._articleService.getById(id).subscribe(
           response => {
@@ -63,7 +66,7 @@ export class BoardComponent implements OnInit {
 
   addArticle(){
     this.view = "addArticle"
-    console.log("tes")
+
   }
 
   viewSelectedArticle(item:IArticle){

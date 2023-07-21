@@ -16,4 +16,8 @@ export class ArticleService {
   getById(id:number){
     return this.http.get<IArticle>(this.baseURL + 'article/'+ id)
   }
+
+  add(requestArticle:any){
+    return this.http.get<IArticle[]>(this.baseURL + 'requestArticle')
+  }
 }

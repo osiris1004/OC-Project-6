@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   }
 
   @Input("targetView")
-  public view!: "other" | "profile"
+  public view!: "other" | "profile" | "no-back-button"
 
   goBack(){
     this._location.back()

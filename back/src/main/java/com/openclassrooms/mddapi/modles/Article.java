@@ -45,6 +45,12 @@ public class Article{
     @Column(name = "author")
     private String author;      //* userId
 
+    public  Article(String title, String content, String author){
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
+
     ////**********
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -53,8 +59,10 @@ public class Article{
             name = "article_theme",
             joinColumns = { @JoinColumn(name = "article_id") },
             inverseJoinColumns = { @JoinColumn(name = "theme_id") })
-    @ToString.Exclude
+    //@ToString.Exclude
     private List<Theme> articleThemes = new ArrayList<Theme>();
+
+
 
 
     public void addTheme(Theme theme) {

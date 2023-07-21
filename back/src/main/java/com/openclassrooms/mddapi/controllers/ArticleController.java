@@ -1,7 +1,12 @@
 package com.openclassrooms.mddapi.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.openclassrooms.mddapi.controllers.resquests.ArticleRequest;
+import com.openclassrooms.mddapi.modles.Theme;
+import com.openclassrooms.mddapi.services.Theme.ThemeService;
+import com.openclassrooms.mddapi.services.User.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +23,9 @@ import lombok.RequiredArgsConstructor;
 public class ArticleController {
 
     private final ArticleService ArticleService;
-  
+    private final ThemeService themeService;
+
+
 
     @GetMapping("/articles")
     public ResponseEntity<List<Article>> Articles() {
@@ -31,8 +38,14 @@ public class ArticleController {
     }
 
     @PostMapping("article")
-    public ResponseEntity<Article> saveArticle( @RequestBody Article ArticleRequest) {
-        return ResponseEntity.ok(ArticleService.saveArticle(ArticleRequest));
+    public ResponseEntity<Article> saveArticle(@RequestBody ArticleRequest articleRequest) {
+        List<Theme> themeList =  articleRequest.getArticleThemes().stream().map(
+                (item) -> themeService.getThemeById(item) ).collect(Collectors.toList());
+        Article newArticle = new Article(articleRequest.getTitle(), articleRequest.getContent(), articleRequest.getAuthorName());
+
+        themeList.forEach((item)->newArticle.addTheme(item));
+
+        return ResponseEntity.ok(ArticleService.saveArticle(newArticle));
     }
 
     @PutMapping("/article/{articleId}")

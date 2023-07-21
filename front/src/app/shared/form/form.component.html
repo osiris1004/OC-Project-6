@@ -5,7 +5,17 @@
             <div class="input"  *ngFor="let data of dynamicData.fields">
                 <div>
                     <p>{{data.label}}</p>
-                    <input matInput placeholder={{data.placeholder}} formControlName={{data.name}}>
+                    <!-- <input matInput placeholder={{data.placeholder}} formControlName={{data.name}}> -->
+                    <div *ngIf="data.name === 'theme'; then thenBlock ;  else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <mat-select formControlName={{data.name}} placeholder={{data.placeholder}} multiple>
+
+                            <mat-option *ngFor="let theme of themeList" [value]="theme.id">{{theme.title}}</mat-option>
+                          </mat-select>
+                      </ng-template>
+                      <ng-template #elseBlock>
+                        <input matInput placeholder={{data.placeholder}} formControlName={{data.name}}>
+                      </ng-template>
                 </div>
             </div>
             <div class="button-container">
@@ -15,3 +25,5 @@
         </div>
 
     </form>
+
+    
