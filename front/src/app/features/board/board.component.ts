@@ -32,6 +32,7 @@ export class BoardComponent implements OnInit {
  
 
       if(this.view === "article"){
+       
         this.viewHeader = "no-back-button"
         this._articleService.get().subscribe(
           response => this.viewArticleList = response,
@@ -62,6 +63,8 @@ export class BoardComponent implements OnInit {
         ) 
       }
     })
+
+     
   }
 
   addArticle(){

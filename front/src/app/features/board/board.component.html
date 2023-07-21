@@ -85,6 +85,6 @@
 
     <section *ngSwitchCase=" 'addArticle' ">
         <app-header [targetView]="viewHeader"></app-header>
-        <app-form [targetView]="'article'"></app-form>
+        <app-form [targetView]="'article'" (redirectByString)="view = $event"></app-form>
     </section>
 </main>

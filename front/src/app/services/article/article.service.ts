@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IArticle } from 'src/app/core/interfaces/IArticle';
+import { IRequestArticle } from 'src/app/core/interfaces/ResquestArticle';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ArticleService {
     return this.http.get<IArticle>(this.baseURL + 'article/'+ id)
   }
 
-  add(requestArticle:any){
-    return this.http.get<IArticle[]>(this.baseURL + 'requestArticle')
+  create(requestArticle:IRequestArticle){
+    return this.http.post<IArticle>(this.baseURL + 'article', requestArticle)
   }
 }

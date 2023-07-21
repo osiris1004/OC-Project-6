@@ -6,7 +6,7 @@
                 <div>
                     <p>{{data.label}}</p>
                     <!-- <input matInput placeholder={{data.placeholder}} formControlName={{data.name}}> -->
-                    <div *ngIf="data.name === 'theme'; then thenBlock ;  else elseBlock"></div>
+                    <div *ngIf="data.name === 'articleThemes'; then thenBlock ;  else elseBlock"></div>
                     <ng-template #thenBlock>
                         <mat-select formControlName={{data.name}} placeholder={{data.placeholder}} multiple>
 
