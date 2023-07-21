@@ -11,7 +11,8 @@ import { FormsModule, ReactiveFormsModule   } from '@angular/forms';
 import { FormComponent } from './shared/form/form.component';
 import { BoardComponent } from './features/board/board.component';
 import { ProfileComponent } from './features/profile/profile.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptorService } from './core/interceptor/token-interceptor.service';
 
 
 
@@ -24,9 +25,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule ,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
