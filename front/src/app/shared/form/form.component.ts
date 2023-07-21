@@ -62,6 +62,7 @@ export class FormComponent implements OnInit {
       this._auth.registerUser(form).subscribe(
         response => {
           localStorage.setItem('token', response.token)
+          this._router.navigate(["board","article"])
         },
         error => console.log(error),
       )
@@ -72,12 +73,13 @@ export class FormComponent implements OnInit {
       this._auth.loginUser(form).subscribe(
         response => {
           localStorage.setItem('token', response.token)
+          this._router.navigate(["board","article"])
         },
         error => console.log(error),
       )
       console.log(form)
       console.log(2)
-      //this._router.navigate(["board","article"])
+      //
     }
     if(this.view === "article"){
       console.log(form)
@@ -182,9 +184,3 @@ export class FormComponent implements OnInit {
 
 }
 
-/**
- * 
- * peace of code that control navifation to and from component
- *  -it reture true in which case the normal execution continues (retrun true of token is present in browser)
- * - it retur false in which case tht navigation is stoped (retrun true of token is not present in browser)
- */

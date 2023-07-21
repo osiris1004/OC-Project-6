@@ -18,6 +18,19 @@ export class AuthService {
   loginUser(userRequest:any){
     return  this.http.post<any>(this.baseURL+'/auth/login', userRequest)
   }
+
+  
+
+  //* used in the auth gard to controlled navigation
+  isLoggedIn(){
+    return !!localStorage.getItem('token')
+  }
+
+  //interceptor
+  getToken(){
+    return localStorage.getItem('token')
+
+  }
 }
 
 /*

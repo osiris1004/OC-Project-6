@@ -4,6 +4,7 @@ import { HomeComponent } from './features/home/home.component';
 import { AuthSystemViewsComponent } from './features/auth-system-views/auth-system-views.component';
 import { BoardComponent } from './features/board/board.component';
 import { ProfileComponent } from './features/profile/profile.component';
+import { AuthGuard } from './core/guard/auth.guard';
 
 
 // consider a guard combined with canLoad / canActivate route option
@@ -11,7 +12,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'auth/:view', component: AuthSystemViewsComponent },
-  { path: 'board/:view', component: BoardComponent },
+  { path: 'board/:view', component: BoardComponent, canActivate : [AuthGuard]},
   { path: 'profile', component: ProfileComponent }
 ];
 
