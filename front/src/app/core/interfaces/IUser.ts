@@ -1,10 +1,12 @@
-interface IUser {
+import { ITheme } from "./ITheme";
+
+export interface IUser {
     id: number;
     name: string;
     email: string;
     password: string;
-    created_at: string;
-    updated_at: string;
-    subscribedThemes:  {id: number;title: string;content: string}[];
+    created_at: Date;
+    updated_at: Date;
+    subscribedThemes:  ITheme[];
     username: string;
 }

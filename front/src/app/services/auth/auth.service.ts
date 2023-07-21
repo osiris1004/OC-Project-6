@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { IToken } from 'src/app/core/interfaces/IToken';
+
 
 @Injectable({
   providedIn: 'root' 
@@ -12,11 +13,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   registerUser(userRequest:any){
-    return  this.http.post<any>(this.baseURL+'/auth/register', userRequest)
+    return  this.http.post<IToken>(this.baseURL+'/auth/register', userRequest)
   }
 
   loginUser(userRequest:any){
-    return  this.http.post<any>(this.baseURL+'/auth/login', userRequest)
+    return  this.http.post<IToken>(this.baseURL+'/auth/login', userRequest)
   }
 
   

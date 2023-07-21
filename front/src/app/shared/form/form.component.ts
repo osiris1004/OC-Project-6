@@ -60,7 +60,7 @@ export class FormComponent implements OnInit {
 
     if(this.view === "registration"){
       this._auth.registerUser(form).subscribe(
-        response => {
+        (response) => {
           localStorage.setItem('token', response.token)
           this._router.navigate(["board","article"])
         },
