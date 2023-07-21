@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-form',
@@ -15,7 +16,7 @@ export class FormComponent implements OnInit {
   @Input("targetView")
   public view!: "registration" | "login" | "article" | "profile" 
   
-  constructor(private _router:Router) {}
+  constructor(private _router:Router, private _auth: AuthService) {}
   ngOnInit() {
     if (this.view === "registration") {
       this.dynamicData = this.fields("registration");
@@ -58,13 +59,25 @@ export class FormComponent implements OnInit {
   submitForm(form: FormGroup) {
 
     if(this.view === "registration"){
+      this._auth.registerUser(form).subscribe(
+        response => {
+          localStorage.setItem('token', response.token)
+        },
+        error => console.log(error),
+      )
       console.log(form)
       console.log(1)
     }
     if(this.view === "login"){
+      this._auth.loginUser(form).subscribe(
+        response => {
+          localStorage.setItem('token', response.token)
+        },
+        error => console.log(error),
+      )
       console.log(form)
       console.log(2)
-      this._router.navigate(["board","article"])
+      //this._router.navigate(["board","article"])
     }
     if(this.view === "article"){
       console.log(form)
@@ -168,3 +181,10 @@ export class FormComponent implements OnInit {
 
 
 }
+
+/**
+ * 
+ * peace of code that control navifation to and from component
+ *  -it reture true in which case the normal execution continues (retrun true of token is present in browser)
+ * - it retur false in which case tht navigation is stoped (retrun true of token is not present in browser)
+ */
