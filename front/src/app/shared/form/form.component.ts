@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ITheme } from 'src/app/core/interfaces/ITheme';
+import { IUser } from 'src/app/core/interfaces/IUser';
+import { IRequestUser } from 'src/app/core/interfaces/RequestUser';
 import { IRequestArticle } from 'src/app/core/interfaces/ResquestArticle';
 import { ArticleService } from 'src/app/services/article/article.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -18,10 +20,14 @@ export class FormComponent implements OnInit {
   formData!: FormGroup;
   themeList!: ITheme[] ;
   authorN!: string;
+
  
   public dynamicData!: any;
   @Input("targetView")
   public view!: "registration" | "login" | "article" | "profile" 
+
+  @Input("userInfo")
+  public userData !: IUser
   
   @Output()
   public redirectByString = new EventEmitter()
@@ -34,6 +40,9 @@ export class FormComponent implements OnInit {
     private _articleService : ArticleService
     ) {}
   ngOnInit() {
+
+    
+
     if (this.view === "registration") {
       this.dynamicData = this.fields("registration");
       this.formData = new FormGroup({
@@ -66,9 +75,11 @@ export class FormComponent implements OnInit {
 
     if (this.view === "profile") {
       this.dynamicData = this.fields("profile");
+    
+     
       this.formData = new FormGroup({
-        name: new FormControl(''),
-        email: new FormControl(''),
+        name: new FormControl(this.userData.name),
+        email: new FormControl(this.userData.email),
       });
     }
 
@@ -109,8 +120,8 @@ export class FormComponent implements OnInit {
      
     }
     if(this.view === "profile"){
-      console.log(form)
-      console.log(1)
+      const format = form as unknown as IRequestUser
+      this._userService.update(format).subscribe(response =>  console.log(response),error => console.log(error))
     }
    
   }

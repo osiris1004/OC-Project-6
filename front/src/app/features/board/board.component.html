@@ -33,7 +33,7 @@
         <div class="carte-container" *ngFor="let item of viewThemeList">
             <div *ngIf="item; then thenBlock ;  else elseBlock"></div>
             <ng-template #thenBlock >
-                <div class="carte">
+                <div class="carte" (click)="subscribe(item.id)">
                     <div>{{item.title}}</div>
                     <div class="section"></div>
                     <div>{{item.content}}</div>

@@ -4,6 +4,7 @@ package com.openclassrooms.mddapi.modles.User;
 import java.sql.Date;
 import java.util.*;
 
+import com.openclassrooms.mddapi.controllers.resquests.UserRequest;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -74,6 +75,7 @@ public class User implements UserDetails{
            theme.getUsers().remove(this);
        }
    }
+
 
 
 

@@ -32,9 +32,7 @@ public class ArticleService implements IArticleService{
         throw  new RuntimeException("Article is not found for the id "+id);
     }
     @Override
-    public Article saveArticle(Article Article) {
-        return articleRepository.save(Article);
-    }
+    public Article saveArticle(Article Article) {return articleRepository.save(Article);}
 
     @Override
     public Article updateArticle(Article Article) {

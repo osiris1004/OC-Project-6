@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { IArticle } from 'src/app/core/interfaces/IArticle';
 import { ITheme } from 'src/app/core/interfaces/ITheme';
+import { IUser } from 'src/app/core/interfaces/IUser';
 import { ArticleService } from 'src/app/services/article/article.service';
 import { ThemeService } from 'src/app/services/theme/theme.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 @Component({
@@ -18,12 +20,14 @@ export class BoardComponent implements OnInit {
   public viewArticleList! :IArticle[]
   public viewArticle! :IArticle
   public viewThemeList! :ITheme[]
+  user! : IUser;
 
   constructor(
     private _route : ActivatedRoute, 
     private _router :Router,
     private _articleService : ArticleService,
-    private _themeService : ThemeService
+    private _themeService : ThemeService,
+    private _userService : UserService
     ) {}
   ngOnInit(): void {
     this._route.paramMap.subscribe((param : ParamMap)=>{
@@ -49,6 +53,11 @@ export class BoardComponent implements OnInit {
           },
           error => console.log(error),
         ) 
+
+        this._userService.get().subscribe(response =>  {
+          this.user = response
+          console.log(this.user)
+        } ,error => console.log(error)) 
       }
 
       if(this.view === "selectedArticle" && param.get('id') ){
@@ -74,6 +83,18 @@ export class BoardComponent implements OnInit {
 
   viewSelectedArticle(item:IArticle){
     this._router.navigate(["board","article",item.id])
+  }
+
+  subscribe(themeId:number){
+    const request = {id  : themeId }
+
+    this._themeService.saveThemeInUser(request, this.user.id).subscribe(
+      response => {
+        console.log(response)
+      },
+      error => console.log(error),
+    ) 
+  
   }
 
   //!services
