@@ -9,37 +9,39 @@
                 <img src="../../../assets/down-arrow.png" alt="logo" class="profile-icon" />
             </div>
         </div>
-        <div class="carte-container" *ngFor="let item of viewArticleList">
-            <div *ngIf="item; then thenBlock ;  else elseBlock"></div>
-            <ng-template #thenBlock >
-                <div class="carte" (click)="viewSelectedArticle(item)">
-                    <div>{{item.title}}</div>
-                    <div class="section">
-                        <p>Creation date : {{item.created_at}}</p>
-                        <p>Author : {{item.author}}</p>
+        <div class="carte-container">
+            <div  *ngFor="let item of viewArticleList">
+                <div *ngIf="item; then thenBlock ;  else elseBlock"></div>
+                <ng-template #thenBlock >
+                    <div class="carte" (click)="viewSelectedArticle(item)">
+                        <div>{{item.title}}</div>
+                        <div class="section">
+                            <p>Creation date : {{item.created_at}}</p>
+                            <p>Author : {{item.author}}</p>
+                        </div>
+                        <div class="themeContentList">{{item.content}}</div>
                     </div>
-                    <div class="themeContentList">{{item.content}}</div>
-                </div>
-            </ng-template>
-            <ng-template #elseBlock>
-                <div class="loader">
-                    <mat-spinner></mat-spinner>
-                </div>
-            </ng-template>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <div class="loader">
+                        <mat-spinner></mat-spinner>
+                    </div>
+                </ng-template>
+            </div>
         </div>
     </section>
     <section *ngSwitchCase=" 'theme' ">
         <app-header [targetView]="viewHeader"></app-header>
-        <div class="carte-container" *ngFor="let item of viewThemeList">
+       <div class="carte-container">
+        <div  *ngFor="let item of viewThemeList">
             <div *ngIf="item; then thenBlock ;  else elseBlock"></div>
             <ng-template #thenBlock >
-                <div class="carte" (click)="subscribe(item.id)">
+                <div class="carte" >
                     <div>{{item.title}}</div>
                     <div class="section"></div>
                     <div>{{item.content}}</div>
-    
                     <div class="button">
-                        <button mat-raised-button color="primary" type="submit">subscribe</button>
+                        <button mat-stroked-button mat-raised-button color="primary" (click)="subscribe(item.id)">subscribe</button>
                     </div>
                 </div>
             </ng-template>
@@ -49,9 +51,10 @@
                 </div>
             </ng-template>
         </div>
+       </div>
     </section>
 
-    <section *ngSwitchCase=" 'selectedArticle' ">
+    <section *ngSwitchCase=" 'selectedArticle' " >
         <app-header [targetView]="viewHeader"></app-header>
         <div *ngIf="viewArticle; then thenBlock ;  else elseBlock"></div>
         <ng-template #thenBlock > 
@@ -59,16 +62,19 @@
                 <div class="title">{{viewArticle.title }}</div>
             <div class="head-article">
                 <div>
+                    <p>DATE</p>
                     <p>created at : {{viewArticle.created_at}}</p>
                     <p>update at : {{viewArticle.updated_at}}</p>
                 </div>
 
                 <div>
-                    <p>author name : {{viewArticle.author}}</p>
+                    <p>Author Name</p>
+                    <p>{{viewArticle.author}}</p>
                 </div>
 
-                <div *ngFor="let item of viewArticle.articleThemes">
-                    <p>{{item.title}}</p>
+                <div >
+                    <p>Theme</p>
+                    <p *ngFor="let item of viewArticle.articleThemes">{{item.title}}</p>
                 </div>
 
             </div>
@@ -80,6 +86,22 @@
                 <mat-spinner></mat-spinner>
             </div>
         </ng-template>
+
+        <div class="comment">
+            <div class="title">Commentaries</div>
+            <!-- this play lists of comment -->
+            <div class="commentList" *ngFor="let item of viewArticle?.comment">
+                <div> <p>{{item.name}}</p> </div>
+                <div> <p>{{item.content}}</p> </div>
+            </div>
+            <!-- send a message -->
+            <div >
+                <form class="container-comment" [formGroup]="formData" (ngSubmit) = "submitForm(formData.value)">
+                    <input matInput placeholder="please type text" formControlName="content">
+                    <button mat-raised-button color="primary" type="submit" >Submit</button>
+                </form>
+            </div>
+        </div>
         
     </section>
 

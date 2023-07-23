@@ -16,6 +16,7 @@
     }
 }
 .carte-container{
+    cursor: pointer;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -40,6 +41,7 @@
         
         div:first-child{
             font-weight: bolder;
+            text-transform: capitalize;
         } 
 
         .button{
@@ -51,16 +53,19 @@
 }
 
 ///! selectedArticle
-/// 
+
+
 .container{
     display: flex;
     flex-direction: column;
     width: 90%;
     margin: auto;
+   
     div{
         padding: 10px;
     }
     .title{
+        text-transform: capitalize;
         font-weight: bolder;
         font-size: large;
         padding-top: 20px;
@@ -68,6 +73,10 @@
     .head-article{
         display: flex;
         gap: 20%;
+        p:nth-child(1){
+            font-weight: 500;
+            border-bottom: solid 1px ;
+        }
     }
     
 }
@@ -77,3 +86,58 @@
     justify-content: center;
     align-items: center;
 }
+
+///! comment
+/// 
+.comment{
+    border-top: solid 1px;
+    width: 88%;
+    margin: auto;
+    
+    .title{
+        padding: 10px;
+        font-weight: 500;
+        font-size: 20px;
+        
+    }
+    .commentList{
+        display: flex;
+        margin-bottom: 15px;
+        div:nth-child(1){
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            p{
+                padding-top: 10px;
+            }
+        }
+        div:nth-child(2){
+            margin-bottom: 10px;
+            width: 100%;
+            background-color: rgb(245, 242, 242);
+            border-radius: 10px;
+            height: 80px;
+            p{
+                padding-top: 10px;
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+        }
+    }
+  
+    .container-comment{
+        margin-bottom: 500px;
+        display: flex;
+        float: right;
+        gap:40px;
+        width: 70%;
+        margin-bottom: 50px;
+       
+        input{
+            border-radius: 10px 1px;
+            height: 100px;
+            width: 100%;
+        }
+    }
+}
+

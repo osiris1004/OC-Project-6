@@ -12,12 +12,12 @@
 <div class="wrapper">
     <div class="title">Subscribe</div>
     <div class="carte-container" *ngFor="let item of user?.subscribedThemes">
-        <div class="carte" (click)="unSubscribe(item.id)">
+        <div class="carte" >
             <div>{{item.title}}</div>
             <div class="section"></div>
             <div>{{item.content}}</div>
             <div class="button">
-                <button mat-raised-button color="primary" type="submit">Unsubscribe</button>
+                <button mat-raised-button color="primary" (click)="unSubscribe(item.id)">Unsubscribe</button>
             </div>
         </div>
     </div>

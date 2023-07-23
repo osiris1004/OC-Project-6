@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IError } from 'src/app/core/interfaces/IError';
 import { ITheme } from 'src/app/core/interfaces/ITheme';
 import { IUser } from 'src/app/core/interfaces/IUser';
 import { IRequestUser } from 'src/app/core/interfaces/RequestUser';
@@ -18,65 +19,65 @@ import { UserService } from 'src/app/services/user/user.service';
 export class FormComponent implements OnInit {
 
   formData!: FormGroup;
-  themeList!: ITheme[] ;
+  themeList!: ITheme[];
   authorN!: string;
+  respondError !: null | string
 
- 
+
   public dynamicData!: any;
   @Input("targetView")
-  public view!: "registration" | "login" | "article" | "profile" 
+  public view!: "registration" | "login" | "article" | "profile"
 
   @Input("userInfo")
   public userData !: IUser
-  
+
   @Output()
   public redirectByString = new EventEmitter()
-  
+
   constructor(
-    private _router:Router, 
+    private _router: Router,
     private _authServices: AuthService,
-    private _themeService : ThemeService,
-    private _userService : UserService,
-    private _articleService : ArticleService
-    ) {}
+    private _themeService: ThemeService,
+    private _userService: UserService,
+    private _articleService: ArticleService
+  ) { }
   ngOnInit() {
 
-    
+
 
     if (this.view === "registration") {
+      localStorage.setItem('token', '')
       this.dynamicData = this.fields("registration");
       this.formData = new FormGroup({
-        name: new FormControl(''),
-        email: new FormControl(''),
-        password: new FormControl('')
+        name: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+        password: new FormControl('', [Validators.required])
       });
-
     }
 
     if (this.view === "login") {
+      localStorage.setItem('token', '')
       this.dynamicData = this.fields("login");
       this.formData = new FormGroup({
-        email: new FormControl(''),
-        password: new FormControl('')
+        email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+        password: new FormControl('', [Validators.required])
       });
     }
 
     if (this.view === "article") {
       this.dynamicData = this.fields("article");
-      this._userService.get().subscribe(response =>  this.authorN = response.name ,error => console.log(error)) 
-      this._themeService.get().subscribe(response =>  this.themeList = response,error => console.log(error))  
+      this._userService.get().subscribe(response => this.authorN = response.name, error => console.log(error))
+      this._themeService.get().subscribe(response => this.themeList = response, error => console.log(error))
       this.formData = new FormGroup({
-        articleThemes: new FormControl(''),
-        article: new FormControl(''),
-        content: new FormControl(''),
-        authorName : new FormControl(''),
+        articleThemes: new FormControl('', [Validators.required]),
+        article: new FormControl('', [Validators.required]),
+        content: new FormControl('', [Validators.required]),
+        authorName: new FormControl('', [Validators.required]),
       });
     }
 
     if (this.view === "profile") {
       this.dynamicData = this.fields("profile");
-    
-     
       this.formData = new FormGroup({
         name: new FormControl(this.userData.name),
         email: new FormControl(this.userData.email),
@@ -88,64 +89,77 @@ export class FormComponent implements OnInit {
 
   submitForm(form: FormGroup) {
 
-    if(this.view === "registration"){
+    if (!this.formData.valid) {
+      this.respondError = "You need to fill your form before submitting "
+      return
+    }
+
+    if (this.view === "registration") {
       this._authServices.registerUser(form).subscribe(
         response => {
           localStorage.setItem('token', response.token)
-          this._router.navigate(["board","article"])
+          this._router.navigate(["board", "article"])
         },
-        error => console.log(error),
+        (error: IError) => {
+          console.log('Test error')
+        },
       )
-      console.log(form)
-      console.log(1)
     }
-    if(this.view === "login"){
+
+    if (this.view === "login") {
       this._authServices.loginUser(form).subscribe(
         response => {
           localStorage.setItem('token', response.token)
-          this._router.navigate(["board","article"])
+          this._router.navigate(["board", "article"])
         },
-        error => console.log(error),
+        (error: IError) => {
+          if (error.ok === false && error.status === 403) this.respondError = "The email or password is incorrect"
+        },
       )
     }
-    if(this.view === "article"){
+
+    if (this.view === "article") {
       const format = form as unknown as IRequestArticle
       format.authorName = this.authorN
-      this._articleService.create(format).subscribe(response =>  console.log(response),error => console.log(error))
+      this._articleService.create(format).subscribe(response => console.log(response), error => console.log(error))
       this.redirectByString.emit('article')
       this._router.navigateByUrl('/').then(() => {
-        this._router.navigate(["board","article"]);
-    });;
-      
-     
+        this._router.navigate(["board", "article"]);
+      });;
+
+
     }
-    if(this.view === "profile"){
+    if (this.view === "profile") {
       const format = form as unknown as IRequestUser
-      this._userService.update(format).subscribe(response =>  console.log(response),error => console.log(error))
+      this._userService.update(format).subscribe(response => console.log(response), error => console.log(error))
     }
-   
+
   }
 
 
   fields(fields: "registration" | "login" | "article" | "profile") {
     if (fields === "registration") {
       return {
-        title: " registration",
+        title: " Registration",
         fields: [
           {
-            label: "user name",
+            label: "Name",
             name: "name",
-            placeholder: "user name"
+            placeholder: "Type your name ...",
+            error: "A name is required",
           },
           {
-            label: "e-mail",
+            label: "E-mail",
             name: "email",
-            placeholder: "email"
+            placeholder: "Type your email ...",
+            error: "An email is required ",
+            errorEmail: "Invalid email "
           },
           {
-            label: "password",
+            label: "Password",
             name: "password",
-            placeholder: "password"
+            placeholder: "Type your password ....",
+            error: "A password is required",
           }
         ]
       }
@@ -156,14 +170,17 @@ export class FormComponent implements OnInit {
         title: "login",
         fields: [
           {
-            label: "e-mail",
+            label: "E-mail",
             name: "email",
-            placeholder: "email"
+            placeholder: "Type your email ...",
+            error: "An email is required",
+            errorEmail: "Invalid email "
           },
           {
-            label: "password",
+            label: "Password",
             name: "password",
-            placeholder: "password"
+            placeholder: "Type your password ...",
+            error: "A password is required"
           }
         ]
       }
@@ -171,23 +188,26 @@ export class FormComponent implements OnInit {
 
     if (fields === "article") {
       return {
-        title: "create an article",
+        title: "Create an article",
         fields: [
           {
             label: "",
             name: "articleThemes",
-            placeholder: "select a theme"
+            placeholder: "Select a theme ...",
+            error: "A theme required"
           },
           {
             label: "",
             name: "article",
-            placeholder: "article title"
+            placeholder: "Type a title ...",
+            error: "A theme required"
           },
 
           {
             label: "",
             name: "content",
-            placeholder: "article content"
+            placeholder: "Type a content description ...",
+            error: "A theme required"
           }
         ]
       }
@@ -195,17 +215,20 @@ export class FormComponent implements OnInit {
 
     if (fields === "profile") {
       return {
-        title: "user profile",
+        title: "User profile",
         fields: [
           {
             label: "",
             name: "name",
-            placeholder: "user name"
+            placeholder: "Type your name ...",
+            error: "A name is required",
           },
           {
             label: "",
             name: "email",
-            placeholder: "email"
+            placeholder: "Type your email ...",
+            error: "An email is required",
+            errorEmail: "Invalid email "
           },
         ]
       }
@@ -217,4 +240,3 @@ export class FormComponent implements OnInit {
 
 
 }
-
