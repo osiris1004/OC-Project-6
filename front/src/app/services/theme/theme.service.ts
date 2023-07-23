@@ -14,4 +14,12 @@ export class ThemeService {
   get() {
     return this.http.get<ITheme[]>(this.baseURL + 'themes')
   }
+
+  saveThemeInUser(request: {id: number}, userId:number){
+    return this.http.post<ITheme>(this.baseURL + 'user/' +userId+'/theme', request)
+  }
+
+  deleteThemeInUser(themeId:number, userId:number){
+    return this.http.delete<ITheme>(this.baseURL + 'user/' +userId+'/theme/'+themeId)
+  }
 }

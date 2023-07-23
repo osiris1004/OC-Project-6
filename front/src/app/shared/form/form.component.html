@@ -1,29 +1,35 @@
-
-    <form class="container" [formGroup]="formData" (ngSubmit) = "submitForm(formData.value)">
-        <div class="item">
-            <div class="title">{{dynamicData.title}}</div>
-            <div class="input"  *ngFor="let data of dynamicData.fields">
-                <div>
-                    <p>{{data.label}}</p>
-                    <!-- <input matInput placeholder={{data.placeholder}} formControlName={{data.name}}> -->
-                    <div *ngIf="data.name === 'articleThemes'; then thenBlock ;  else elseBlock"></div>
-                    <ng-template #thenBlock>
-                        <mat-select formControlName={{data.name}} placeholder={{data.placeholder}} multiple>
-
-                            <mat-option *ngFor="let theme of themeList" [value]="theme.id">{{theme.title}}</mat-option>
-                          </mat-select>
-                      </ng-template>
-                      <ng-template #elseBlock>
-                        <input matInput placeholder={{data.placeholder}} formControlName={{data.name}}>
-                      </ng-template>
-                </div>
+<form class="container" [formGroup]="formData" (ngSubmit)="submitForm(formData.value)" #form="ngForm">
+    <div class="item">
+        <div class="title">{{dynamicData.title}}</div>
+        <div class="input" *ngFor="let data of dynamicData.fields">
+            <div>
+                <p>{{data.label}}</p>
+                <div *ngIf="data.name === 'articleThemes'; then thenBlock ;  else elseBlock"></div>
+                <ng-template #thenBlock>
+                    <mat-select formControlName={{data.name}} placeholder={{data.placeholder}} multiple>
+                        <mat-option *ngFor="let theme of themeList" [value]="theme.id">{{theme.title}}</mat-option>
+                    </mat-select>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <input matInput placeholder={{data.placeholder}} formControlName={{data.name}}
+                        [class.error-input]="!formData.controls[data.name].untouched && formData.controls[data.name].errors?.['required']">
+                    <div>
+                        <mat-error
+                            *ngIf="!formData.controls[data.name].untouched && formData.controls[data.name].errors?.['required']">
+                            {{data.error}}
+                        </mat-error>
+                        <mat-error *ngIf=" formData.controls[data.name].errors?.['pattern']">
+                            {{data.errorEmail}}
+                        </mat-error>
+                    </div>
+                </ng-template>
             </div>
-            <div class="button-container">
-                <button mat-raised-button color="primary" type="submit" >Submit</button>
-            </div>
-            
         </div>
-
-    </form>
-
-    
+        <div class="button-container">
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+        </div>
+        <div class="respondError">
+            <p *ngIf="respondError">{{respondError}}</p>
+        </div>
+    </div>
+</form>
