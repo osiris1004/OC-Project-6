@@ -72,7 +72,7 @@ export class FormComponent implements OnInit {
         articleThemes: new FormControl('', [Validators.required]),
         article: new FormControl('', [Validators.required]),
         content: new FormControl('', [Validators.required]),
-        authorName: new FormControl('', [Validators.required]),
+        authorName: new FormControl(''),
       });
     }
 

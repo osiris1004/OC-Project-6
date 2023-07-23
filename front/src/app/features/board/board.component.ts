@@ -95,6 +95,10 @@ export class BoardComponent implements OnInit {
     ) 
   }
 
+  sort(){
+    
+  }
+
   submitForm(form:FormGroup){
     const format = form as unknown as IRequestComment
     format.name = this.authorN
