@@ -4,9 +4,9 @@
         <app-header [targetView]="viewHeader"></app-header>
         <div class="head">
             <button mat-raised-button color="primary" type="submit" (click)="addArticle()">create an article</button>
-            <div class="right">
+            <div class="right"  (click)="sort()">
                 <div>sort</div>
-                <img src="../../../assets/down-arrow.png" alt="logo" class="profile-icon" />
+                <img src="../../../assets/down-arrow.png" alt="logo" class="profile-icon"/>
             </div>
         </div>
         <div class="carte-container">

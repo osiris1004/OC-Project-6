@@ -14,7 +14,7 @@
                     <div *ngIf="data.name === 'content'; then thenBlock ;  else elseBlock"></div>
 
                     <ng-template #thenBlock>
-                        <textarea rows="10"  matInput placeholder={{data.placeholder}} formControlName={{data.name}}
+                        <textarea rows="10" matInput placeholder={{data.placeholder}} formControlName={{data.name}}
                             [class.error-input]="!formData.controls[data.name].untouched && formData.controls[data.name].errors?.['required']"></textarea>
                         <div>
                             <mat-error
@@ -45,7 +45,14 @@
             </div>
         </div>
         <div class="button-container">
-            <button mat-raised-button color="primary" type="submit">Submit</button>
+            <div class="button-submit">
+                <button mat-raised-button color="primary" type="submit">Submit</button>
+            </div>
+            <div *ngIf="dynamicData.title === 'User profile'" class="button-logout">
+                <p (click)="dynamicData.title === 'User profile' && logOut()">Log out </p>
+            </div>
+            
+            
         </div>
         <div class="respondError">
             <p *ngIf="respondError">{{respondError}}</p>

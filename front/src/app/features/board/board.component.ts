@@ -23,6 +23,7 @@ export class BoardComponent implements OnInit {
   public viewHeader !: "other" | "profile" | "no-back-button"
   public view !: "article" | "theme" | "selectedArticle" | "addArticle"
   public viewArticleList! :IArticle[]
+  public filterCondition : boolean = true 
   public viewArticle! :IArticle
   public viewThemeList! :ITheme[]
   user! : IUser;
@@ -96,6 +97,14 @@ export class BoardComponent implements OnInit {
   }
 
   sort(){
+    if(this.filterCondition){
+      this.viewArticleList = this.viewArticleList.sort((a,b)=>b.title.localeCompare(a.title))
+      this.filterCondition = false
+    }else{
+      this.viewArticleList = this.viewArticleList.sort((a,b)=>a.title.localeCompare(b.title))
+      this.filterCondition = true
+    }
+    
     
   }
 
