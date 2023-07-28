@@ -98,7 +98,8 @@
             <div >
                 <form class="container-comment" [formGroup]="formData" (ngSubmit) = "submitForm(formData.value)">
                     <input matInput placeholder="please type text" formControlName="content">
-                    <button mat-raised-button color="primary" type="submit" >Submit</button>
+                    <img width="100" src="../../../assets/send-btn.png" alt="logo" class="back-icon" (click)="submitForm(formData.value)"/>
+                    <!-- button mat-raised-button color="primary" type="submit" >Submit</button> -->
                 </form>
             </div>
         </div>

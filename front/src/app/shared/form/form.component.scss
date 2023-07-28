@@ -28,10 +28,18 @@
             
         }
 
+        textarea {
+            border-radius: 5px;
+            min-width: 400px;
+            border : solid 2px
+        }
+
         .error-input{
             border: solid red 2px;
         }
+       
     }
+    
 }
 
 
@@ -67,3 +75,4 @@
         font-weight: 500;
     }
 }
+
