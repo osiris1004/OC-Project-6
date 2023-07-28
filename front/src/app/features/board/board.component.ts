@@ -23,6 +23,7 @@ export class BoardComponent implements OnInit {
   public viewHeader !: "other" | "profile" | "no-back-button"
   public view !: "article" | "theme" | "selectedArticle" | "addArticle"
   public viewArticleList! :IArticle[]
+  public filterCondition : boolean = true 
   public viewArticle! :IArticle
   public viewThemeList! :ITheme[]
   user! : IUser;
@@ -93,6 +94,18 @@ export class BoardComponent implements OnInit {
       response => { this._snackBar.open('you successfully subscribe to the theme', '....', {duration: 3000});},
       error => error,
     ) 
+  }
+
+  sort(){
+    if(this.filterCondition){
+      this.viewArticleList = this.viewArticleList.sort((a,b)=>b.title.localeCompare(a.title))
+      this.filterCondition = false
+    }else{
+      this.viewArticleList = this.viewArticleList.sort((a,b)=>a.title.localeCompare(b.title))
+      this.filterCondition = true
+    }
+    
+    
   }
 
   submitForm(form:FormGroup){

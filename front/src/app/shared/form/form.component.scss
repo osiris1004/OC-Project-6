@@ -28,19 +28,41 @@
             
         }
 
+        textarea {
+            border-radius: 5px;
+            min-width: 400px;
+            border : solid 2px
+        }
+
         .error-input{
             border: solid red 2px;
         }
+       
     }
+    
 }
 
 
-.button-container{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    button {
-        width: 200px;
+.button-container {
+
+
+
+    .button-submit {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        button {
+            width: 200px;
+        }
+    }
+
+    .button-logout {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        font-weight: 500;
+        color: red;
+        cursor: pointer;
     }
 }
 
@@ -67,3 +89,4 @@
         font-weight: 500;
     }
 }
+

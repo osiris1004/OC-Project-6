@@ -70,9 +70,9 @@ export class FormComponent implements OnInit {
       this._themeService.get().subscribe(response => this.themeList = response, error => console.log(error))
       this.formData = new FormGroup({
         articleThemes: new FormControl('', [Validators.required]),
-        article: new FormControl('', [Validators.required]),
+        title: new FormControl('', [Validators.required]),
         content: new FormControl('', [Validators.required]),
-        authorName: new FormControl('', [Validators.required]),
+        authorName: new FormControl(''),
       });
     }
 
@@ -86,6 +86,10 @@ export class FormComponent implements OnInit {
 
   }
 
+  logOut(){
+    localStorage.setItem('token', '')
+          this._router.navigate(["/"])
+  }
 
   submitForm(form: FormGroup) {
 
@@ -198,7 +202,7 @@ export class FormComponent implements OnInit {
           },
           {
             label: "",
-            name: "article",
+            name: "title",
             placeholder: "Type a title ...",
             error: "A theme required"
           },
@@ -222,6 +226,7 @@ export class FormComponent implements OnInit {
             name: "name",
             placeholder: "Type your name ...",
             error: "A name is required",
+            logOut: "logout"
           },
           {
             label: "",
@@ -230,6 +235,7 @@ export class FormComponent implements OnInit {
             error: "An email is required",
             errorEmail: "Invalid email "
           },
+          
         ]
       }
     }

@@ -22,6 +22,10 @@
         width: 60px;
         height: 60px;
     }
+    .pointer{
+        cursor: pointer;
+        font-weight: 500;
+    }
 }
 .back-icon{
     width: 60px;
@@ -31,9 +35,9 @@
 }
 
 @media screen and (max-width: 600px) { //if  view === 480px or <480px
-    .header {
-      background-color: lightgreen;
-    }
+    // .header {
+    //   background-color: lightgreen;
+    // }
     .profile-icon {
         display: none;
     }
@@ -49,4 +53,39 @@
         display: none;
     }
 
+  }
+
+  .drawer{
+    border: solid 1px;
+    position: absolute;
+    width: 70%;
+    right: 0;
+    height: 100%;
+    background-color: white;
+    z-index: 1;
+   
+
+    .drawer-menu{
+        position: absolute;
+        right: 0;
+        top: 20%;
+        padding: 10px;
+        div{
+            font-size: xx-large;
+            padding: 10px;
+        }
+    }
+    .drawer-profile{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: 10px;
+
+        .profile-icon{
+            display: block;
+        }
+    }
+  }
+  .drawer-hidden{
+    display: none
   }

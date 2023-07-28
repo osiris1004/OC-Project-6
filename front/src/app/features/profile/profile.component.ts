@@ -27,8 +27,6 @@ export class ProfileComponent implements OnInit {
   }
 
   unSubscribe(themeId:number){
-    
-
     this._themeService.deleteThemeInUser(themeId, this.user.id).subscribe(
       response => {
         console.log(response)
@@ -37,9 +35,6 @@ export class ProfileComponent implements OnInit {
       },
       error => console.log(error),
     ) 
-
-    
-  
   }
 
 }

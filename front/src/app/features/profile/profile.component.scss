@@ -12,9 +12,11 @@
 
 .carte-container{
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     .carte{
+        
         background-color: rgba(128, 128, 128, 0.099);
         margin: 10px;
         width: 400px;

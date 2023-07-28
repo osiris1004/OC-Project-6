@@ -1,26 +1,30 @@
-
-.head{
+.head {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding: 20px 4px ;
-    .right{
+    padding: 20px 4px;
+
+    .right {
+        cursor: pointer;
         margin-left: auto;
         display: flex;
         align-items: center;
         font-weight: bolder;
-        img{
+
+        img {
             width: 20px;
             height: 40px;
         }
     }
 }
-.carte-container{
+
+.carte-container {
     cursor: pointer;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    .carte{
+
+    .carte {
         background-color: rgba(128, 128, 128, 0.099);
         margin: 10px;
         width: 400px;
@@ -28,23 +32,24 @@
         padding: 10px;
         border-radius: 5px;
         overflow: hidden;
-        text-overflow: ellipsis; 
+        text-overflow: ellipsis;
         display: inline-block;
-        
-        .section{
+
+        .section {
             display: flex;
             padding: 5px;
-            p{
+
+            p {
                 width: 50%;
             }
         }
-        
-        div:first-child{
+
+        div:first-child {
             font-weight: bolder;
             text-transform: capitalize;
-        } 
+        }
 
-        .button{
+        .button {
             display: flex;
             justify-content: center;
             margin: 10px;
@@ -55,33 +60,37 @@
 ///! selectedArticle
 
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     width: 90%;
     margin: auto;
-   
-    div{
+
+    div {
         padding: 10px;
     }
-    .title{
+
+    .title {
         text-transform: capitalize;
         font-weight: bolder;
         font-size: large;
         padding-top: 20px;
-    } 
-    .head-article{
+    }
+
+    .head-article {
         display: flex;
         gap: 20%;
-        p:nth-child(1){
+        flex-wrap: wrap;
+
+        p:nth-child(1) {
             font-weight: 500;
-            border-bottom: solid 1px ;
+            border-bottom: solid 1px;
         }
     }
-    
+
 }
 
-.loader{
+.loader {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,55 +98,95 @@
 
 ///! comment
 /// 
-.comment{
+.comment {
     border-top: solid 1px;
     width: 88%;
     margin: auto;
-    
-    .title{
+
+    .title {
         padding: 10px;
         font-weight: 500;
         font-size: 20px;
-        
+
     }
-    .commentList{
+
+    .commentList {
         display: flex;
         margin-bottom: 15px;
-        div:nth-child(1){
+
+        div:nth-child(1) {
             width: 100%;
             display: flex;
             justify-content: center;
-            p{
+
+            p {
                 padding-top: 10px;
             }
         }
-        div:nth-child(2){
+
+        div:nth-child(2) {
             margin-bottom: 10px;
             width: 100%;
             background-color: rgb(245, 242, 242);
             border-radius: 10px;
             height: 80px;
-            p{
+
+            p {
                 padding-top: 10px;
                 padding-right: 20px;
                 padding-left: 20px;
             }
         }
     }
-  
-    .container-comment{
-        margin-bottom: 500px;
+
+    .container-comment {
         display: flex;
         float: right;
-        gap:40px;
+        gap: 0px;
         width: 70%;
-        margin-bottom: 50px;
-       
-        input{
+
+
+        input {
             border-radius: 10px 1px;
             height: 100px;
             width: 100%;
         }
     }
-}
 
+    @media screen and (max-width: 600px) {
+        //if  view === 480px or <480px
+        .commentList {
+            display: block;
+            margin-bottom: 15px;
+
+            div:nth-child(1) {
+                width: 100%;
+                display: flex;
+                justify-content: end;
+
+                p {
+                    padding-top: 10px;
+                }
+            }
+        }
+
+        .container-comment {
+            display: block;
+            float: none;
+            width: auto;
+
+            input {
+                width: 100%;
+            }
+
+            img {
+                cursor: pointer;
+                position: relative;
+                bottom: 110px;
+                right: 0px;
+                float: right;
+            }
+        }
+
+    }
+}

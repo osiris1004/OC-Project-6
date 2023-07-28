@@ -16,6 +16,7 @@ import { TokenInterceptorService } from './core/interceptor/token-interceptor.se
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBar, MatSnackBarRef, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSidenavModule} from '@angular/material/sidenav';
 @NgModule({
   declarations: [AppComponent, HomeComponent, HeaderComponent, AuthSystemViewsComponent, FormComponent, BoardComponent, ProfileComponent],
   imports: [
@@ -28,7 +29,9 @@ import {MatSnackBar, MatSnackBarRef, MatSnackBarModule} from '@angular/material/
     HttpClientModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
