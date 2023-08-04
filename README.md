@@ -1,3 +1,4 @@
+ ![Telesport](/MDD.png)
  # MDD APP (Monde de Dév)
 
 This is the README file for the DDM application. The application is a web application built using **sprint boot** and **angular**, with a **MySQL Server** database. The application allows users looking for job opportunities to consult the list of opportunities, and allows those offering opportunities to make them available to the public.
