@@ -31,10 +31,17 @@ A) ___IN THE BACKEND DIRECTORY___
 
 2. data-credential:
 
-    a. Edit the file "back/src/main/application.properties" with your database credentials.
-        
-        spring.datasource.username=YOUR USERNAME
-        spring.datasource.password=YOUR PASSWORD
+    a. Configure your env.properties
+    - create your env.properties at root and  add the following
+        ``` 
+                #data base info
+                DB_USER= xxxx
+                DB_PASSWORD= xxxx
+
+                #mail info
+                SENDER_USER=xxxxxx.gmail.com
+                SENDER_PASSORD=xxxxx
+        ```
         
     b. Run the following command:
 
